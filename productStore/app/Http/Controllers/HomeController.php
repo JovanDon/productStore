@@ -36,10 +36,6 @@ class HomeController extends Controller
         $product= Pdt::find($request->id);
         return view('editform',compact('product',$product));
     }
-    public function view()
-    {
-       $products= Pdt::all();
-        return view('view',compact('products',$products));
-    }
+  
 
 }

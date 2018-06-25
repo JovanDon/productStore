@@ -22,6 +22,8 @@ class CreatePdtsTable extends Migration
             $table->integer('amount_instock')->nullable();
             $table->date('expdate');
             $table->timestamps();
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

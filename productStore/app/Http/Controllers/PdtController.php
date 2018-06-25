@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use Session;
 use App\Pdt;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\User;
 class PdtController extends Controller
 {
     /**
@@ -45,21 +46,24 @@ class PdtController extends Controller
         ]);
 */
          //get post data
+        
+        // dd(  Auth::user()->id );
          $postData = ['name' => $request->name,
          'amount_instock'=> $request->amount_instock,
          'qty' => $request->qty,
          'cprice' => $request->cprice,
          'sprice' => $request->sprice,
-         'expdate' => $request->exdate];
-        
+         'expdate' => $request->exdate,
+         'user_id' => Auth::user()->id  
+        ];
+     
         // dd($postData );
          //insert post data
          Pdt::create($postData);
       
    //store status message
    Session::flash('success_msg', 'product added successfully!');
-   $products= Pdt::all();
-   return view('view',compact('products',$products));
+  return $this->show();
     }
 
     /**
@@ -68,9 +72,19 @@ class PdtController extends Controller
      * @param  \App\Pdt  $pdt
      * @return \Illuminate\Http\Response
      */
-    public function show(Pdt $pdt)
+    public function show()
     {
-        //
+
+        $products= Pdt::all()->where('user_id',Auth::user()->id );//Pdt::all();
+        
+       if(Auth::user()->name =="Admin")
+       $products= Pdt::all();
+       else
+       $products= Pdt::all()->where('user_id',Auth::user()->id );//Pdt::all();
+        
+
+        return view('view',compact('products',$products));
+
     }
 
     /**
@@ -91,8 +105,7 @@ class PdtController extends Controller
 
          //store status message
    Session::flash('success_msg', 'product edited successfully!');
-   $products= Pdt::all();
-        return view('view',compact('products',$products));
+   return $this->show();
     }
 
     /**
@@ -105,8 +118,6 @@ class PdtController extends Controller
     {
    
         $del = Pdt::where('id', $request->_id)->delete();
-
-        $products= Pdt::all();
-        return view('view',compact('products',$products));
+        return $this->show();
     }
 }
