@@ -50,10 +50,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav " id="middle" >
                      @guest
+                      @else
                       <li><a href="{{ URL::to('add') }}" >Add Product</a></li>
                       <li><a href="{{ URL::to('view') }}" >view Products</a></li> 
-                      <li><a href="{{ URL::to('about') }}">About</a></li>
-                      @else
                       <li><a href="{{ URL::to('about') }}">About</a></li>
                       @endguest
                     </ul>
