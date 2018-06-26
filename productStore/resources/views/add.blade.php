@@ -8,7 +8,7 @@
                 <div class="panel-heading">Dashboard</div>
 
                  <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{url('addaction')}}">
+                    <form class="form-horizontal" method="POST" enctype="multipart/form-data"  action="{{url('addaction')}}">
                     @csrf
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -52,7 +52,15 @@
                             <label for="expdate" class="col-md-4 control-label">Expire Date</label>
 
                             <div class="col-md-6">
-                                <input id="exdate" type="date" class="form-control" name="exdate" required>
+                                <input id="exdate" type="date" class="form-control" name="exdate" >
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="supplier_certificate" class="col-md-4 control-label">Supplier Certificate</label>
+
+                            <div class="col-md-6">
+                                <input id="supplier_certificate" type="file" class="form-control" name="supplier_certificate" >
 
                             </div>
                         </div>

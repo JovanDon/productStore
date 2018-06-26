@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/edit/{id}', 'HomeController@edit')->name('edit'); 
-   
 Route::get('/add', 'HomeController@add')->name('add');
 Route::get('/view', 'PdtController@show')->name('view');
 Route::post('/addaction', 'PdtController@addproduct');
 Route::post('/editaction', 'PdtController@editproduct');
 Route::post('/deleteaction', 'PdtController@destroy');
+Route::post('/downloadaction', 'PdtController@download'); 

@@ -20,10 +20,11 @@ class CreatePdtsTable extends Migration
             $table->integer('cprice');
             $table->integer('sprice');
             $table->integer('amount_instock')->nullable();
-            $table->date('expdate');
+            $table->date('expdate')->nullable();
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('supplier_certificate')->nullable();
         });
     }
 

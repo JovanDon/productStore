@@ -6,6 +6,8 @@ use App\Pdt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Illuminate\Support\Facades\Storage;
+
 class PdtController extends Controller
 {
     /**
@@ -18,14 +20,14 @@ class PdtController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+     Function to download file
      */
-    public function create()
+    public function download( Request $request)
     {
-        //
+       // $url = Storage::url($request->certificate);//dd($url );
+        
+       return Storage::download($request->certificate );
     }
 
     /**
@@ -45,19 +47,23 @@ class PdtController extends Controller
             'expdate' => 'required' 
         ]);
 */
-         //get post data
-        
-        // dd(  Auth::user()->id );
+$path=null;
+if($request->file('supplier_certificate'))
+$path = Storage::putFile('supplier_certificate',$request->file('supplier_certificate'));
+   
+        // define aray data to insert in product table
          $postData = ['name' => $request->name,
-         'amount_instock'=> $request->amount_instock,
+         'amount_instock'=> $request->qty,
          'qty' => $request->qty,
          'cprice' => $request->cprice,
          'sprice' => $request->sprice,
          'expdate' => $request->exdate,
-         'user_id' => Auth::user()->id  
+         'user_id' => Auth::user()->id,
+         'supplier_certificate'  =>$path 
         ];
      
-        // dd($postData );
+    
+        
          //insert post data
          Pdt::create($postData);
       
@@ -116,7 +122,8 @@ class PdtController extends Controller
      */
     public function destroy( Request $request)
     {
-   
+       Storage::delete($request->certificate );
+      // dd($request->certificate );
         $del = Pdt::where('id', $request->_id)->delete();
         return $this->show();
     }
