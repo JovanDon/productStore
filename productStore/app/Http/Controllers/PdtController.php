@@ -101,14 +101,24 @@ $path = Storage::putFile('supplier_certificate',$request->file('supplier_certifi
      */
     public function editproduct(Request $request)
     {
+
+        $path=null;
+        if($request->file('supplier_certificate')){
+            Storage::delete($request->certificateold );
+            $path = Storage::putFile('supplier_certificate',$request->file('supplier_certificate'));
+        }
+        
         Pdt::where('id', $request->_id)->update(["name"=> $request->name, 
                                                 "qty"=> $request->qty,
                                                 "cprice"=> $request->cprice,
                                                 "sprice"=> $request->sprice,
-                                                "expdate"=>$request->exdate
+                                                "expdate"=>$request->exdate,
+                                                'user_id' => Auth::user()->id,
+                                                'supplier_certificate'  =>$path 
+                                                
                                                 ]);
        
-
+   
          //store status message
    Session::flash('success_msg', 'product edited successfully!');
    return $this->show();

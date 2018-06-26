@@ -52,11 +52,22 @@
                             <label for="expdate" class="col-md-4 control-label">Expire Date</label>
 
                             <div class="col-md-6">
-                                <input id="exdate" type="date" class="form-control"  value="{{$product->expdate}}" name="exdate" required>
+                                <input id="exdate" type="date" class="form-control"  value="{{$product->expdate}}" name="exdate" >
 
                             </div>
                         </div>
 
+
+                        <div class="form-group">
+                            <label for="supplier_certificate" class="col-md-4 control-label">Supplier Certificate</label>
+
+                            <div class="col-md-6">
+                                <input id="supplier_certificate" type="file" class="form-control" name="supplier_certificate" >
+                                <input id="certificateold" type="hidden"  value="{{$product->supplier_certificate}}" class="form-control" name="certificateold" >
+
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
