@@ -56,10 +56,10 @@
                       <li><a href="{{ URL::to('about') }}">About</a></li>
                       @endguest
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" style="margin-left:320px; " >
+                    <ul class="nav navbar-nav navbar-right" style="margin-left:400px; " >
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li style="margin-left:200px; " ><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                         <li class="nav-item dropdown">
